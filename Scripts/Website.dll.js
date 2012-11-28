@@ -1,9 +1,9 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,WebSharper,Formlet,Data,Formlet1,Website,Forms,List,Controls,Enhance,FormButtonConfiguration,Remoting,window,FormContainerConfiguration,Html,Default,Operators,Control,_FSharpEvent_1,Formlet2,Base,_Result_1,Concurrency;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,WebSharper,Formlet,Data,Formlet1,Website,ContactForms,List,Controls,Enhance,FormContainerConfiguration,Html,Default,Operators;
  Runtime.Define(Global,{
   Website:{
-   Forms:{
+   ContactForms:{
     BasicInfoForm:function()
     {
      var x;
@@ -16,12 +16,12 @@
         Age:age
        };
       };
-     },Formlet1.Return(x)),Forms.Input("Name","Please enter your name")),Forms.InputInt("Age","Please enter a valid age"));
+     },Formlet1.Return(x)),ContactForms.input("Name","Please enter your name")),ContactForms.inputInt("Age","Please enter a valid age"));
     },
     ContactInfoForm:function()
     {
      var phone,x,f,f1,address,x1,_builder_;
-     phone=(x=Forms.Input("Phone","Empty phone number not allowed"),(f=(f1=function(arg0)
+     phone=(x=ContactForms.input("Phone","Empty phone number not allowed"),(f=(f1=function(arg0)
      {
       return{
        $:0,
@@ -47,7 +47,7 @@
         };
        };
       };
-     },Formlet1.Return(x1)),Forms.Input("Street","Empty street not allowed")),Forms.Input("City","Empty city not allowed")),Forms.Input("Country","Empty country not allowed"));
+     },Formlet1.Return(x1)),ContactForms.input("Street","Empty street not allowed")),ContactForms.input("City","Empty city not allowed")),ContactForms.input("Country","Empty country not allowed"));
      _builder_=Formlet1.Do();
      return _builder_.Delay(function()
      {
@@ -64,124 +64,10 @@
       });
      });
     },
-    Input:function(label,err)
-    {
-     var x,x1,x2,f,f1,f2;
-     x=(x1=(x2=Controls.Input(""),(f=function(arg10)
-     {
-      return Data.Validator().IsNotEmpty(err,arg10);
-     },f(x2))),(f1=function(formlet)
-     {
-      return Enhance.WithValidationIcon(formlet);
-     },f1(x1)));
-     f2=function(formlet)
-     {
-      return Enhance.WithTextLabel(label,formlet);
-     };
-     return f2(x);
-    },
-    InputInt:function(label,err)
-    {
-     var x,x1,x2,x3,f,f1,f2,f3,f4;
-     x=(x1=(x2=(x3=Controls.Input(""),(f=Data.Validator().IsInt(err),f(x3))),(f1=function(formlet)
-     {
-      return Enhance.WithValidationIcon(formlet);
-     },f1(x2))),(f2=function(formlet)
-     {
-      return Enhance.WithTextLabel(label,formlet);
-     },f2(x1)));
-     f3=(f4=function(value)
-     {
-      return value<<0;
-     },function(formlet)
-     {
-      return Formlet1.Map(f4,formlet);
-     });
-     return f3(x);
-    },
-    LoginForm:function(redirectUrl)
-    {
-     var uName,x,x1,x2,f,f1,f2,pw,x3,x4,x5,f3,f4,f5,loginF,x6,x7,_builder_,f8;
-     uName=(x=(x1=(x2=Controls.Input(""),(f=function(arg10)
-     {
-      return Data.Validator().IsNotEmpty("Enter Username",arg10);
-     },f(x2))),(f1=function(formlet)
-     {
-      return Enhance.WithValidationIcon(formlet);
-     },f1(x1))),(f2=function(formlet)
-     {
-      return Enhance.WithTextLabel("Username",formlet);
-     },f2(x)));
-     pw=(x3=(x4=(x5=Controls.Password(""),(f3=function(arg10)
-     {
-      return Data.Validator().IsNotEmpty("Enter Password",arg10);
-     },f3(x5))),(f4=function(formlet)
-     {
-      return Enhance.WithValidationIcon(formlet);
-     },f4(x4))),(f5=function(formlet)
-     {
-      return Enhance.WithTextLabel("Password",formlet);
-     },f5(x3)));
-     loginF=Data.$(Data.$((x6=function(n)
-     {
-      return function(pw1)
-      {
-       return{
-        Name:n,
-        Password:pw1
-       };
-      };
-     },Formlet1.Return(x6)),uName),pw);
-     x7=(_builder_=Formlet1.Do(),_builder_.Delay(function()
-     {
-      var f6,submitConf,inputRecord,resetConf,inputRecord1;
-      return _builder_.Bind((f6=(submitConf=(inputRecord=FormButtonConfiguration.get_Default(),Runtime.New(FormButtonConfiguration,{
-       Label:{
-        $:1,
-        $0:"Login"
-       },
-       Style:inputRecord.Style,
-       Class:inputRecord.Class
-      })),(resetConf=(inputRecord1=FormButtonConfiguration.get_Default(),Runtime.New(FormButtonConfiguration,{
-       Label:{
-        $:1,
-        $0:"Reset"
-       },
-       Style:inputRecord1.Style,
-       Class:inputRecord1.Class
-      })),function(formlet)
-      {
-       return Enhance.WithCustomSubmitAndResetButtons(submitConf,resetConf,formlet);
-      })),f6(loginF)),function(_arg1)
-      {
-       var a,f7;
-       return _builder_.ReturnFrom((a=Remoting.Async("Website:0",[_arg1]),(f7=function(loggedIn)
-       {
-        var _;
-        if(loggedIn)
-         {
-          _=window;
-          _.location=redirectUrl;
-          redirectUrl;
-          return Formlet1.Return(null);
-         }
-        else
-         {
-          return Forms.WarningPanel("Login failed");
-         }
-       },Forms.WithLoadingPane(a,f7))));
-      });
-     }));
-     f8=function(formlet)
-     {
-      return Enhance.WithFormContainer(formlet);
-     };
-     return f8(x7);
-    },
     SignupSequence:function()
     {
-     var infoForm,x,x1,f,f1,fc,inputRecord,Description,x2,f2,f3,x3,f4,f5,contactForm,x4,x5,f6,f7,fc1,inputRecord1,Description1,x6,f8,f9,x7,fa,fb,proc,xe,_builder_,f10;
-     infoForm=(x=(x1=Forms.BasicInfoForm(),(f=function(formlet)
+     var infoForm,x,x1,f,f1,fc,inputRecord,Description,x2,f2,f3,x3,f4,f5,contactForm,x4,x5,f6,f7,fc1,inputRecord1,Description1,x6,f8,f9,x7,fa,fb,proc,flow,xe,_builder_,f10;
+     infoForm=(x=(x1=ContactForms.BasicInfoForm(),(f=function(formlet)
      {
       return Enhance.WithSubmitAndResetButtons(formlet);
      },f(x1))),(f1=(fc=(inputRecord=FormContainerConfiguration.get_Default(),(Description=(x2=(f2=function(arg0)
@@ -220,7 +106,7 @@
      {
       return Enhance.WithCustomFormContainer(fc,formlet);
      }),f1(x)));
-     contactForm=(x4=(x5=Forms.ContactInfoForm(),(f6=function(formlet)
+     contactForm=(x4=(x5=ContactForms.ContactInfoForm(),(f6=function(formlet)
      {
       return Enhance.WithSubmitAndResetButtons(formlet);
      },f6(x5))),(f7=(fc1=(inputRecord1=FormContainerConfiguration.get_Default(),(Description1=(x6=(f8=function(arg0)
@@ -282,7 +168,7 @@
        };
       };
      };
-     xe=(_builder_=Formlet1.Do(),_builder_.Delay(function()
+     flow=(xe=(_builder_=Formlet1.Do(),_builder_.Delay(function()
      {
       return _builder_.Bind(infoForm,function(_arg1)
       {
@@ -291,79 +177,52 @@
         return _builder_.ReturnFrom(Formlet1.OfElement((proc(_arg1))(_arg2)));
        });
       });
-     }));
-     f10=function(formlet)
+     })),(f10=function(formlet)
      {
       return Formlet1.Flowlet(formlet);
+     },f10(xe)));
+     return Operators.add(Default.Div(List.ofArray([Default.H1(List.ofArray([Default.Text("Sign up today!")]))])),List.ofArray([flow]));
+    },
+    input:function(label,err)
+    {
+     var x,x1,x2,f,f1,f2;
+     x=(x1=(x2=Controls.Input(""),(f=function(arg10)
+     {
+      return Data.Validator().IsNotEmpty(err,arg10);
+     },f(x2))),(f1=function(formlet)
+     {
+      return Enhance.WithValidationIcon(formlet);
+     },f1(x1)));
+     f2=function(formlet)
+     {
+      return Enhance.WithTextLabel(label,formlet);
      };
-     return f10(xe);
+     return f2(x);
     },
-    WarningPanel:function(label)
+    inputInt:function(label,err)
     {
-     var _builder_;
-     _builder_=Formlet1.Do();
-     return _builder_.Delay(function()
+     var x,x1,x2,x3,f,f1,f2,f3,f4;
+     x=(x1=(x2=(x3=Controls.Input(""),(f=Data.Validator().IsInt(err),f(x3))),(f1=function(formlet)
      {
-      var genElem;
-      return _builder_.Bind((genElem=function()
-      {
-       return Operators.add(Default.Div(List.ofArray([Default.Attr().Class("warningPanel")])),List.ofArray([Default.Text(label)]));
-      },Formlet1.OfElement(genElem)),function()
-      {
-       return _builder_.ReturnFrom(Formlet1.Never());
-      });
+      return Enhance.WithValidationIcon(formlet);
+     },f1(x2))),(f2=function(formlet)
+     {
+      return Enhance.WithTextLabel(label,formlet);
+     },f2(x1)));
+     f3=(f4=function(value)
+     {
+      return value<<0;
+     },function(formlet)
+     {
+      return Formlet1.Map(f4,formlet);
      });
-    },
-    WithLoadingPane:function(a,f)
-    {
-     var loadingPane,f1;
-     loadingPane=(f1=function()
-     {
-      var elem,state,x,f2,f4;
-      elem=Default.Div(List.ofArray([Default.Attr().Class("loadingPane")]));
-      state=_FSharpEvent_1.New();
-      x=(f2=function()
-      {
-       var f3;
-       f3=function(_arg11)
-       {
-        var x1;
-        x1=Runtime.New(_Result_1,{
-         $:0,
-         $0:_arg11
-        });
-        state.event.Trigger(x1);
-        return Concurrency.Return(null);
-       };
-       return Concurrency.Bind(a,f3);
-      },Concurrency.Delay(f2));
-      f4=function(arg00)
-      {
-       var t;
-       t={
-        $:0
-       };
-       return Concurrency.Start(arg00);
-      };
-      f4(x);
-      return[elem,function(value)
-      {
-       value;
-      },state.event];
-     },Formlet1.BuildFormlet(f1));
-     return Formlet1.Replace(loadingPane,f);
+     return f3(x);
     }
    },
-   LoginControl:Runtime.Class({
+   SignupSequence:Runtime.Class({
     get_Body:function()
     {
-     return Forms.LoginForm(this.redirectUrl);
-    }
-   }),
-   SignupSequenceControl:Runtime.Class({
-    get_Body:function()
-    {
-     return Forms.SignupSequence();
+     return ContactForms.SignupSequence();
     }
    })
   }
@@ -375,23 +234,14 @@
   Data=Runtime.Safe(Formlet.Data);
   Formlet1=Runtime.Safe(Formlet.Formlet);
   Website=Runtime.Safe(Global.Website);
-  Forms=Runtime.Safe(Website.Forms);
+  ContactForms=Runtime.Safe(Website.ContactForms);
   List=Runtime.Safe(WebSharper.List);
   Controls=Runtime.Safe(Formlet.Controls);
   Enhance=Runtime.Safe(Formlet.Enhance);
-  FormButtonConfiguration=Runtime.Safe(Enhance.FormButtonConfiguration);
-  Remoting=Runtime.Safe(WebSharper.Remoting);
-  window=Runtime.Safe(Global.window);
   FormContainerConfiguration=Runtime.Safe(Enhance.FormContainerConfiguration);
   Html=Runtime.Safe(WebSharper.Html);
   Default=Runtime.Safe(Html.Default);
-  Operators=Runtime.Safe(Html.Operators);
-  Control=Runtime.Safe(WebSharper.Control);
-  _FSharpEvent_1=Runtime.Safe(Control["FSharpEvent`1"]);
-  Formlet2=Runtime.Safe(Global.IntelliFactory.Formlet);
-  Base=Runtime.Safe(Formlet2.Base);
-  _Result_1=Runtime.Safe(Base["Result`1"]);
-  return Concurrency=Runtime.Safe(WebSharper.Concurrency);
+  return Operators=Runtime.Safe(Html.Operators);
  });
  Runtime.OnLoad(function()
  {
