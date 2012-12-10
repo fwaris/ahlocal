@@ -646,8 +646,8 @@
     },
     footer:function(page)
     {
-     var _this,arg00,_this1,arg001,x,a,_this2,arg002,_this3,arg003,b,f,x1,x3,a1,_this4,arg004,_this5,arg005,b1,f2,x4,x5,a2,_this6,arg006,_this7,arg007,b2,f3,x6,x7,a3,_this8,arg008,_this9,arg009,b3,f4,x8;
-     return Operators.add(Default.Div(List.ofArray([Default.Id("footer"+String(page)),(_this=HTML5.Attr(),(arg00="data-"+"role",_this.NewAttr(arg00,"footer"))),(_this1=HTML5.Attr(),(arg001="data-"+"position",_this1.NewAttr(arg001,"fixed"))),Default.Attr().Class("ui-bar")])),List.ofArray([(x=Operators.add(Default.A((a=List.ofArray([Default.HRef("#"),(_this2=HTML5.Attr(),(arg002="data-"+"role",_this2.NewAttr(arg002,"button"))),(_this3=HTML5.Attr(),(arg003="data-"+"icon",_this3.NewAttr(arg003,"home")))]),(b=Seq.toList(Seq.delay(function()
+     var _this,arg00,_this1,arg001,x,a,_this2,arg002,_this3,arg003,_this4,arg004,b,f,x1,x3,a1,_this5,arg005,_this6,arg006,_this7,arg007,b1,f2,x4,x5,a2,_this8,arg008,_this9,arg009,_thisa,arg00a,b2,f3,x6,x7,a3,_thisb,arg00b,_thisc,arg00c,_thisd,arg00d,b3,f4,x8;
+     return Operators.add(Default.Div(List.ofArray([Default.Id("footer"+String(page)),(_this=HTML5.Attr(),(arg00="data-"+"role",_this.NewAttr(arg00,"footer"))),(_this1=HTML5.Attr(),(arg001="data-"+"position",_this1.NewAttr(arg001,"fixed"))),Default.Attr().Class("ui-bar")])),List.ofArray([(x=Operators.add(Default.A((a=List.ofArray([Default.HRef("#"),(_this2=HTML5.Attr(),(arg002="data-"+"role",_this2.NewAttr(arg002,"button"))),(_this3=HTML5.Attr(),(arg003="data-"+"icon",_this3.NewAttr(arg003,"home"))),(_this4=HTML5.Attr(),(arg004="data-"+"iconpos",_this4.NewAttr(arg004,"top")))]),(b=Seq.toList(Seq.delay(function()
      {
       if(Unchecked.Equals(page,{
        $:0
@@ -674,7 +674,7 @@
      },function(arg10)
      {
       return EventsPervasives.Events().OnClick(x1,arg10);
-     }),(f(x),x))),(x3=Operators.add(Default.A((a1=List.ofArray([Default.HRef("#"),(_this4=HTML5.Attr(),(arg004="data-"+"role",_this4.NewAttr(arg004,"button"))),(_this5=HTML5.Attr(),(arg005="data-"+"icon",_this5.NewAttr(arg005,"star")))]),(b1=Seq.toList(Seq.delay(function()
+     }),(f(x),x))),(x3=Operators.add(Default.A((a1=List.ofArray([Default.HRef("#"),(_this5=HTML5.Attr(),(arg005="data-"+"role",_this5.NewAttr(arg005,"button"))),(_this6=HTML5.Attr(),(arg006="data-"+"icon",_this6.NewAttr(arg006,"star"))),(_this7=HTML5.Attr(),(arg007="data-"+"iconpos",_this7.NewAttr(arg007,"top")))]),(b1=Seq.toList(Seq.delay(function()
      {
       if(Unchecked.Equals(page,{
        $:1
@@ -701,7 +701,7 @@
      },function(arg10)
      {
       return EventsPervasives.Events().OnClick(x4,arg10);
-     }),(f2(x3),x3))),(x5=Operators.add(Default.A((a2=List.ofArray([Default.HRef("#"),(_this6=HTML5.Attr(),(arg006="data-"+"role",_this6.NewAttr(arg006,"button"))),(_this7=HTML5.Attr(),(arg007="data-"+"icon",_this7.NewAttr(arg007,"grid")))]),(b2=Seq.toList(Seq.delay(function()
+     }),(f2(x3),x3))),(x5=Operators.add(Default.A((a2=List.ofArray([Default.HRef("#"),(_this8=HTML5.Attr(),(arg008="data-"+"role",_this8.NewAttr(arg008,"button"))),(_this9=HTML5.Attr(),(arg009="data-"+"icon",_this9.NewAttr(arg009,"grid"))),(_thisa=HTML5.Attr(),(arg00a="data-"+"iconpos",_thisa.NewAttr(arg00a,"top")))]),(b2=Seq.toList(Seq.delay(function()
      {
       if(Unchecked.Equals(page,{
        $:2
@@ -728,7 +728,7 @@
      },function(arg10)
      {
       return EventsPervasives.Events().OnClick(x6,arg10);
-     }),(f3(x5),x5))),(x7=Operators.add(Default.A((a3=List.ofArray([Default.HRef("#"),(_this8=HTML5.Attr(),(arg008="data-"+"role",_this8.NewAttr(arg008,"button"))),(_this9=HTML5.Attr(),(arg009="data-"+"icon",_this9.NewAttr(arg009,"info")))]),(b3=Seq.toList(Seq.delay(function()
+     }),(f3(x5),x5))),(x7=Operators.add(Default.A((a3=List.ofArray([Default.HRef("#"),(_thisb=HTML5.Attr(),(arg00b="data-"+"role",_thisb.NewAttr(arg00b,"button"))),(_thisc=HTML5.Attr(),(arg00c="data-"+"icon",_thisc.NewAttr(arg00c,"info"))),(_thisd=HTML5.Attr(),(arg00d="data-"+"iconpos",_thisd.NewAttr(arg00d,"top")))]),(b3=Seq.toList(Seq.delay(function()
      {
       if(Unchecked.Equals(page,{
        $:3
