@@ -1,20 +1,76 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,WebSharper,Html,Operators,Default,List,HTML5,T,_,SiteCommon,Math,jQuery,Nav,EventsPervasives,Remoting,String,ClaimInput,Concurrency,window,Seq,Claims,ClaimController,ConfirmationState,Unchecked,Policies,Billing,ContactUs,Website,MIScript;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,WebSharper,Html,Operators,Default,List,HTML5,_,SiteCommon,Billing,Remoting,T,String,Seq,jQuery,Math,Nav,EventsPervasives,ClaimInput,Concurrency,window,Claims,ClaimController,ContactUs,ConfirmationState,Unchecked,Policies,Website,MIScript;
  Runtime.Define(Global,{
   "":{
    Billing:{
     BillingPage:function()
     {
-     var header,_this,arg00,_this1,arg001,content,_this2,arg002,page,_this3,arg003;
-     header=Operators.add(Default.Div(List.ofArray([(_this=HTML5.Attr(),(arg00="data-"+"role",_this.NewAttr(arg00,"header"))),(_this1=HTML5.Attr(),(arg001="data-"+"theme",_this1.NewAttr(arg001,"b")))])),List.ofArray([Default.H1(List.ofArray([Default.Text("Billing")]))]));
-     content=Operators.add(Default.Div(List.ofArray([(_this2=HTML5.Attr(),(arg002="data-"+"role",_this2.NewAttr(arg002,"content")))])),Runtime.New(T,{
-      $:0
-     }));
-     page=Operators.add(Default.Div(List.ofArray([Default.Id("billing"),(_this3=HTML5.Attr(),(arg003="data-"+"role",_this3.NewAttr(arg003,"page")))])),List.ofArray([header,content,SiteCommon.footer({
+     var header,_this,arg00,_this1,arg001,content,_this2,arg002,_this3,arg003,page,x,_this4,arg004,f,f1;
+     header=Operators.add(Default.Div(List.ofArray([(_this=HTML5.Attr(),(arg00="data-"+"role",_this.NewAttr(arg00,"header"))),(_this1=HTML5.Attr(),(arg001="data-"+"theme",_this1.NewAttr(arg001,"b")))])),List.ofArray([Default.H1(List.ofArray([Default.Text("Billing History")]))]));
+     content=Operators.add(Default.Div(List.ofArray([(_this2=HTML5.Attr(),(arg002="data-"+"role",_this2.NewAttr(arg002,"content")))])),List.ofArray([Default.UL(List.ofArray([(_this3=HTML5.Attr(),(arg003="data-"+"role",_this3.NewAttr(arg003,"listview"))),Default.Id("billingHistory")]))]));
+     page=(x=Operators.add(Default.Div(List.ofArray([Default.Id("billing"),(_this4=HTML5.Attr(),(arg004="data-"+"role",_this4.NewAttr(arg004,"page")))])),List.ofArray([header,content,SiteCommon.footer({
       $:2
-     })]));
+     })])),(f=(f1=function()
+     {
+      return Billing.LoadBillingInfo();
+     },function(e)
+     {
+      return SiteCommon.OnShow(f1,e);
+     }),(f(x),x)));
      return page;
+    },
+    LoadBillingInfo:function()
+    {
+     var bills,patternInput,x,f,folder,listItems,children,f1,jqlist,x1,f2,f3;
+     bills=Remoting.Call("Website:1",[]);
+     patternInput=(x=[0,Runtime.New(T,{
+      $:0
+     })],(f=(folder=Runtime.Tupled(function(tupledArg)
+     {
+      var prevYear,acc;
+      prevYear=tupledArg[0];
+      acc=tupledArg[1];
+      return function(bill)
+      {
+       var changed,nextYear,item,_this,arg00;
+       changed=prevYear!==bill.Year;
+       nextYear=changed?bill.Year:prevYear;
+       item=changed?Operators.add(Default.LI(List.ofArray([(_this=HTML5.Attr(),(arg00="data-"+"role",_this.NewAttr(arg00,"list-divider")))])),List.ofArray([Default.Text(String(bill.Year))])):Operators.add(Default.LI(Runtime.New(T,{
+        $:0
+       })),List.ofArray([Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-grid-a")])),List.ofArray([Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-block-a")])),List.ofArray([Default.Text(bill.Month)])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-block-b")])),List.ofArray([Default.Text(" $"),Default.Text(String(bill.Amount))]))]))]));
+       return[nextYear,Runtime.New(T,{
+        $:1,
+        $0:item,
+        $1:acc
+       })];
+      };
+     }),Runtime.Tupled(function(state)
+     {
+      return function(list)
+      {
+       return Seq.fold(folder,state,list);
+      };
+     })),(f(x))(bills)));
+     listItems=patternInput[1];
+     children=Operators.add(Default.Div(Runtime.New(T,{
+      $:0
+     })),(f1=function(list)
+     {
+      return List.rev(list);
+     },f1(listItems)));
+     jqlist=jQuery("#billingHistory");
+     x1=jqlist.html(children.get_Html());
+     f2=function(value)
+     {
+      value;
+     };
+     f2(x1);
+     f3=function(arg00)
+     {
+      return arg00.listview("refresh");
+     };
+     return f3(jqlist);
     }
    },
    ClaimInput:{
@@ -78,7 +134,7 @@
             Location:Location,
             Status:"open"
            });
-           Remoting.Call("Website:1",[claim]);
+           Remoting.Call("Website:3",[claim]);
            return Nav.showNotification("New claim saved","#claims");
           }
          else
@@ -129,7 +185,7 @@
       matchValue=Nav.direction();
       if(matchValue.$==0)
        {
-        ClaimInput.loadPolicies();
+        ClaimInput.LoadPolicies();
         selectedPolicyId.contents={
          $:0
         };
@@ -209,10 +265,10 @@
       };
      });
     },
-    loadPolicies:function()
+    LoadPolicies:function()
     {
      var policies,children,a,x,_this,b,x4,f,x5,f1;
-     policies=Remoting.Call("Website:2",[]);
+     policies=Remoting.Call("Website:4",[]);
      children=Operators.add(Default.Div(Runtime.New(T,{
       $:0
      })),(a=List.ofArray([(x=List.ofArray([Default.Text("Policy")]),(_this=Default.Tags(),_this.NewTag("legend",x)))]),(b=Seq.toList(Seq.delay(function()
@@ -325,7 +381,7 @@
        {
         return EventsPervasives.Events().OnClick(x3,arg10);
        }),(f1(x2),x2)))]));
-      },Remoting.Call("Website:0",[]));
+      },Remoting.Call("Website:2",[]));
      })))]));
      page=Operators.add(Default.Div(List.ofArray([Default.Id("claims"),(_this8=HTML5.Attr(),(arg007="data-"+"role",_this8.NewAttr(arg007,"page")))])),List.ofArray([header,content,SiteCommon.footer({
       $:1
@@ -349,15 +405,61 @@
    ContactUs:{
     ContactUsPage:function()
     {
-     var header,_this,arg00,_this1,arg001,content,_this2,arg002,page,_this3,arg003;
+     var feedbackText,header,_this,arg00,_this1,arg001,content,_this2,arg002,_this3,x,_this4,arg003,x1,_this5,_this6,_this7,f,x2,x4,_this8,arg004,f1,x5,page,x6,_this9,arg005,f3,f4;
+     feedbackText={
+      contents:""
+     };
      header=Operators.add(Default.Div(List.ofArray([(_this=HTML5.Attr(),(arg00="data-"+"role",_this.NewAttr(arg00,"header"))),(_this1=HTML5.Attr(),(arg001="data-"+"theme",_this1.NewAttr(arg001,"b")))])),List.ofArray([Default.H1(List.ofArray([Default.Text("Contact Us")]))]));
-     content=Operators.add(Default.Div(List.ofArray([(_this2=HTML5.Attr(),(arg002="data-"+"role",_this2.NewAttr(arg002,"content")))])),Runtime.New(T,{
-      $:0
-     }));
-     page=Operators.add(Default.Div(List.ofArray([Default.Id("contactus"),(_this3=HTML5.Attr(),(arg003="data-"+"role",_this3.NewAttr(arg003,"page")))])),List.ofArray([header,content,SiteCommon.footer({
+     content=Operators.add(Default.Div(List.ofArray([(_this2=HTML5.Attr(),(arg002="data-"+"role",_this2.NewAttr(arg002,"content"))),(_this3=Default.Attr(),_this3.NewAttr("id","contactuscontent"))])),List.ofArray([Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-grid-a")])),List.ofArray([Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-block-a")])),List.ofArray([Default.Text("Company:")])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-block-b")])),List.ofArray([Default.Text("XYZ Co.")])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-block-a")])),List.ofArray([Default.Text("Phone:")])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-block-b")])),List.ofArray([Default.Text("(555)-123-4567")]))])),(x=Operators.add(Default.Div(List.ofArray([(_this4=HTML5.Attr(),(arg003="data-"+"role",_this4.NewAttr(arg003,"fieldcontain")))])),List.ofArray([Operators.add((x1=List.ofArray([(_this5=Default.Attr(),_this5.NewAttr("for","feedbackText"))]),(_this6=Default.Tags(),_this6.NewTag("label",x1))),List.ofArray([Default.Text("Feedback:")])),Default.TextArea(List.ofArray([Default.Id("feedbackText"),(_this7=Default.Attr(),_this7.NewAttr("style","background-color:yellow"))]))])),(f=(x2=function(x3)
+     {
+      feedbackText.contents=x3.Body.textContent;
+     },function(arg10)
+     {
+      return EventsPervasives.Events().OnChange(x2,arg10);
+     }),(f(x),x))),(x4=Operators.add(Default.A(List.ofArray([(_this8=HTML5.Attr(),(arg004="data-"+"role",_this8.NewAttr(arg004,"button")))])),List.ofArray([Default.Text("Submit")])),(f1=(x5=function()
+     {
+      return function()
+      {
+       var x3,f2;
+       x3=jQuery("#contactuscontent").animate({
+        opacity:0.1
+       },2000,function()
+       {
+        return ContactUs.SubmitFeedback(feedbackText.contents);
+       });
+       f2=function(value)
+       {
+        value;
+       };
+       return f2(x3);
+      };
+     },function(arg10)
+     {
+      return EventsPervasives.Events().OnClick(x5,arg10);
+     }),(f1(x4),x4)))]));
+     page=(x6=Operators.add(Default.Div(List.ofArray([Default.Id("contactus"),(_this9=HTML5.Attr(),(arg005="data-"+"role",_this9.NewAttr(arg005,"page")))])),List.ofArray([header,content,SiteCommon.footer({
       $:3
-     })]));
+     })])),(f3=(f4=function()
+     {
+      var x3,f2;
+      feedbackText.contents="";
+      x3=jQuery("#contactuscontent").css("opacity","1.0");
+      f2=function(value)
+      {
+       value;
+      };
+      return f2(x3);
+     },function(e)
+     {
+      return SiteCommon.OnBeforeShow(f4,e);
+     }),(f3(x6),x6)));
      return page;
+    },
+    SubmitFeedback:function(text)
+    {
+     var resp;
+     resp=Remoting.Call("Website:0",[text]);
+     return Nav.showNotification(resp,"#policies");
     }
    },
    Policies:{
@@ -371,7 +473,7 @@
       {
        var _this5,arg004,_this6,_this7,_this8,_this9,_thisa,_thisb,_thisc;
        return Operators.add(Default.OL(List.ofArray([(_this5=HTML5.Attr(),(arg004="data-"+"role",_this5.NewAttr(arg004,"collapsible")))])),List.ofArray([Default.H3(List.ofArray([Default.Text(p.Type),Default.Text(" "),Default.Text(p.Id)])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-grid-a")])),List.ofArray([Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-block-a"),(_this6=Default.Attr(),_this6.NewAttr("style","font-weight:bold; font-size:smaller; background:#D6EBFF; padding:5px"))])),List.ofArray([Default.Text("Premium")])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-block-b"),(_this7=Default.Attr(),_this7.NewAttr("style","font-weight:bold; font-size:smaller; background:#D6EBFF; padding:5px"))])),List.ofArray([Default.Text(String(p.Premium))])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-block-a"),(_this8=Default.Attr(),_this8.NewAttr("style","font-weight:bold; font-size:smaller; background:#E0FFFF; padding:5px"))])),List.ofArray([Default.Text("Coverage")])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-block-b"),(_this9=Default.Attr(),_this9.NewAttr("style","font-weight:bold; font-size:smaller; background:#E0FFFF; padding:5px"))])),List.ofArray([Default.Text(String(p.Coverage))])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-block-a"),(_thisa=Default.Attr(),_thisa.NewAttr("style","font-weight:bold; font-size:smaller; background:#D6EBFF; padding:5px"))])),List.ofArray([Default.Text("Expires")])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-block-b"),(_thisb=Default.Attr(),_thisb.NewAttr("style","font-weight:bold; font-size:smaller; background:#D6EBFF; padding:5px"))])),List.ofArray([Default.Text(String(p.Expires))]))])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-grid-solo"),(_thisc=Default.Attr(),_thisc.NewAttr("style","font-size:smaller; background:#F5F5FF; padding:5px"))])),List.ofArray([Default.Text(p.Description)]))]));
-      },Remoting.Call("Website:2",[]));
+      },Remoting.Call("Website:4",[]));
      })))]));
      page=Operators.add(Default.Div(List.ofArray([Default.Id("policies"),(_thisd=HTML5.Attr(),(arg005="data-"+"role",_thisd.NewAttr(arg005,"page")))])),List.ofArray([header,content,SiteCommon.footer({
       $:0
@@ -516,7 +618,7 @@
     dialogPage:function()
     {
      var x,_this,arg00,_this1,arg001,x1,_this2,arg002,_this3,arg003,f,x2,f1,f2;
-     x=Operators.add(Default.Div(List.ofArray([(_this=HTML5.Attr(),(arg00="data-"+"role",_this.NewAttr(arg00,"page"))),Default.Id("messageDialog"),(_this1=HTML5.Attr(),(arg001="data-"+"theme",_this1.NewAttr(arg001,"c")))])),List.ofArray([Operators.add(Default.H1(List.ofArray([Default.Id("messageText")])),List.ofArray([Default.Text("...")])),(x1=Operators.add(Default.A(List.ofArray([(_this2=HTML5.Attr(),(arg002="data-"+"role",_this2.NewAttr(arg002,"button"))),(_this3=HTML5.Attr(),(arg003="data-"+"icon",_this3.NewAttr(arg003,"back")))])),List.ofArray([Default.Text("Close")])),(f=(x2=function()
+     x=Operators.add(Default.Div(List.ofArray([(_this=HTML5.Attr(),(arg00="data-"+"role",_this.NewAttr(arg00,"page"))),Default.Id("messageDialog"),(_this1=HTML5.Attr(),(arg001="data-"+"theme",_this1.NewAttr(arg001,"e")))])),List.ofArray([Operators.add(Default.H1(List.ofArray([Default.Id("messageText")])),List.ofArray([Default.Text("...")])),(x1=Operators.add(Default.A(List.ofArray([(_this2=HTML5.Attr(),(arg002="data-"+"role",_this2.NewAttr(arg002,"button"))),(_this3=HTML5.Attr(),(arg003="data-"+"icon",_this3.NewAttr(arg003,"back")))])),List.ofArray([Default.Text("Close")])),(f=(x2=function()
      {
       return function()
       {
@@ -544,7 +646,7 @@
     },
     footer:function(page)
     {
-     var _this,arg00,_this1,arg001,x,a,_this2,arg002,_this3,arg003,b,f,x1,x3,a1,_this4,arg004,b1,f2,x4,x5,a2,_this5,arg005,b2,f3,x6,x7,a3,_this6,arg006,b3,f4,x8;
+     var _this,arg00,_this1,arg001,x,a,_this2,arg002,_this3,arg003,b,f,x1,x3,a1,_this4,arg004,_this5,arg005,b1,f2,x4,x5,a2,_this6,arg006,_this7,arg007,b2,f3,x6,x7,a3,_this8,arg008,_this9,arg009,b3,f4,x8;
      return Operators.add(Default.Div(List.ofArray([Default.Id("footer"+String(page)),(_this=HTML5.Attr(),(arg00="data-"+"role",_this.NewAttr(arg00,"footer"))),(_this1=HTML5.Attr(),(arg001="data-"+"position",_this1.NewAttr(arg001,"fixed"))),Default.Attr().Class("ui-bar")])),List.ofArray([(x=Operators.add(Default.A((a=List.ofArray([Default.HRef("#"),(_this2=HTML5.Attr(),(arg002="data-"+"role",_this2.NewAttr(arg002,"button"))),(_this3=HTML5.Attr(),(arg003="data-"+"icon",_this3.NewAttr(arg003,"home")))]),(b=Seq.toList(Seq.delay(function()
      {
       if(Unchecked.Equals(page,{
@@ -572,7 +674,7 @@
      },function(arg10)
      {
       return EventsPervasives.Events().OnClick(x1,arg10);
-     }),(f(x),x))),(x3=Operators.add(Default.A((a1=List.ofArray([Default.HRef("#"),(_this4=HTML5.Attr(),(arg004="data-"+"role",_this4.NewAttr(arg004,"button")))]),(b1=Seq.toList(Seq.delay(function()
+     }),(f(x),x))),(x3=Operators.add(Default.A((a1=List.ofArray([Default.HRef("#"),(_this4=HTML5.Attr(),(arg004="data-"+"role",_this4.NewAttr(arg004,"button"))),(_this5=HTML5.Attr(),(arg005="data-"+"icon",_this5.NewAttr(arg005,"star")))]),(b1=Seq.toList(Seq.delay(function()
      {
       if(Unchecked.Equals(page,{
        $:1
@@ -599,7 +701,7 @@
      },function(arg10)
      {
       return EventsPervasives.Events().OnClick(x4,arg10);
-     }),(f2(x3),x3))),(x5=Operators.add(Default.A((a2=List.ofArray([Default.HRef("#"),(_this5=HTML5.Attr(),(arg005="data-"+"role",_this5.NewAttr(arg005,"button")))]),(b2=Seq.toList(Seq.delay(function()
+     }),(f2(x3),x3))),(x5=Operators.add(Default.A((a2=List.ofArray([Default.HRef("#"),(_this6=HTML5.Attr(),(arg006="data-"+"role",_this6.NewAttr(arg006,"button"))),(_this7=HTML5.Attr(),(arg007="data-"+"icon",_this7.NewAttr(arg007,"grid")))]),(b2=Seq.toList(Seq.delay(function()
      {
       if(Unchecked.Equals(page,{
        $:2
@@ -626,7 +728,7 @@
      },function(arg10)
      {
       return EventsPervasives.Events().OnClick(x6,arg10);
-     }),(f3(x5),x5))),(x7=Operators.add(Default.A((a3=List.ofArray([Default.HRef("#"),(_this6=HTML5.Attr(),(arg006="data-"+"role",_this6.NewAttr(arg006,"button")))]),(b3=Seq.toList(Seq.delay(function()
+     }),(f3(x5),x5))),(x7=Operators.add(Default.A((a3=List.ofArray([Default.HRef("#"),(_this8=HTML5.Attr(),(arg008="data-"+"role",_this8.NewAttr(arg008,"button"))),(_this9=HTML5.Attr(),(arg009="data-"+"icon",_this9.NewAttr(arg009,"info")))]),(b3=Seq.toList(Seq.delay(function()
      {
       if(Unchecked.Equals(page,{
        $:3
@@ -658,7 +760,7 @@
     notificationPage:function()
     {
      var x,_this,arg00,_this1,arg001,x1,_this2,arg002,_this3,arg003,f,x2,f1,f2;
-     x=Operators.add(Default.Div(List.ofArray([(_this=HTML5.Attr(),(arg00="data-"+"role",_this.NewAttr(arg00,"page"))),Default.Id("notificationDialog"),(_this1=HTML5.Attr(),(arg001="data-"+"theme",_this1.NewAttr(arg001,"c")))])),List.ofArray([Operators.add(Default.H1(List.ofArray([Default.Id("notificationMessage")])),List.ofArray([Default.Text("...")])),(x1=Operators.add(Default.A(List.ofArray([(_this2=HTML5.Attr(),(arg002="data-"+"role",_this2.NewAttr(arg002,"button"))),(_this3=HTML5.Attr(),(arg003="data-"+"icon",_this3.NewAttr(arg003,"check")))])),List.ofArray([Default.Text("Ok")])),(f=(x2=function()
+     x=Operators.add(Default.Div(List.ofArray([(_this=HTML5.Attr(),(arg00="data-"+"role",_this.NewAttr(arg00,"page"))),Default.Id("notificationDialog"),(_this1=HTML5.Attr(),(arg001="data-"+"theme",_this1.NewAttr(arg001,"e")))])),List.ofArray([Operators.add(Default.H1(List.ofArray([Default.Id("notificationMessage")])),List.ofArray([Default.Text("...")])),(x1=Operators.add(Default.A(List.ofArray([(_this2=HTML5.Attr(),(arg002="data-"+"role",_this2.NewAttr(arg002,"button"))),(_this3=HTML5.Attr(),(arg003="data-"+"icon",_this3.NewAttr(arg003,"check")))])),List.ofArray([Default.Text("Ok")])),(f=(x2=function()
      {
       return function()
       {
@@ -752,26 +854,26 @@
   Default=Runtime.Safe(Html.Default);
   List=Runtime.Safe(WebSharper.List);
   HTML5=Runtime.Safe(Default.HTML5);
-  T=Runtime.Safe(List.T);
   _=Runtime.Safe(Global[""]);
   SiteCommon=Runtime.Safe(_.SiteCommon);
-  Math=Runtime.Safe(Global.Math);
+  Billing=Runtime.Safe(_.Billing);
+  Remoting=Runtime.Safe(WebSharper.Remoting);
+  T=Runtime.Safe(List.T);
+  String=Runtime.Safe(Global.String);
+  Seq=Runtime.Safe(WebSharper.Seq);
   jQuery=Runtime.Safe(Global.jQuery);
+  Math=Runtime.Safe(Global.Math);
   Nav=Runtime.Safe(SiteCommon.Nav);
   EventsPervasives=Runtime.Safe(Html.EventsPervasives);
-  Remoting=Runtime.Safe(WebSharper.Remoting);
-  String=Runtime.Safe(Global.String);
   ClaimInput=Runtime.Safe(_.ClaimInput);
   Concurrency=Runtime.Safe(WebSharper.Concurrency);
   window=Runtime.Safe(Global.window);
-  Seq=Runtime.Safe(WebSharper.Seq);
   Claims=Runtime.Safe(_.Claims);
   ClaimController=Runtime.Safe(Claims.ClaimController);
+  ContactUs=Runtime.Safe(_.ContactUs);
   ConfirmationState=Runtime.Safe(SiteCommon.ConfirmationState);
   Unchecked=Runtime.Safe(WebSharper.Unchecked);
   Policies=Runtime.Safe(_.Policies);
-  Billing=Runtime.Safe(_.Billing);
-  ContactUs=Runtime.Safe(_.ContactUs);
   Website=Runtime.Safe(Global.Website);
   return MIScript=Runtime.Safe(Website.MIScript);
  });
