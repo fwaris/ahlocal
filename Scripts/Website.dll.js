@@ -405,61 +405,60 @@
    ContactUs:{
     ContactUsPage:function()
     {
-     var feedbackText,header,_this,arg00,_this1,arg001,content,_this2,arg002,_this3,x,_this4,arg003,x1,_this5,_this6,_this7,f,x2,x5,_this8,arg004,f2,x6,page,x7,_this9,arg005,f3,f4;
+     var feedbackText,header,_this,arg00,_this1,arg001,content,_this2,arg002,_this3,x,_this4,arg003,x1,_this5,_this6,_this7,f,x2,x4,_this8,arg004,f1,x5,page,x6,_this9,arg005,f3,f4;
      feedbackText={
       contents:""
      };
      header=Operators.add(Default.Div(List.ofArray([(_this=HTML5.Attr(),(arg00="data-"+"role",_this.NewAttr(arg00,"header"))),(_this1=HTML5.Attr(),(arg001="data-"+"theme",_this1.NewAttr(arg001,"b")))])),List.ofArray([SiteCommon.homeButton(),Default.H1(List.ofArray([Default.Text("Contact Us")]))]));
      content=Operators.add(Default.Div(List.ofArray([(_this2=HTML5.Attr(),(arg002="data-"+"role",_this2.NewAttr(arg002,"content"))),(_this3=Default.Attr(),_this3.NewAttr("id","contactuscontent"))])),List.ofArray([Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-grid-a")])),List.ofArray([Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-block-a")])),List.ofArray([Default.Text("Company:")])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-block-b")])),List.ofArray([Default.Text("XYZ Co.")])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-block-a")])),List.ofArray([Default.Text("Phone:")])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-block-b")])),List.ofArray([Default.Text("(555)-123-4567")]))])),(x=Operators.add(Default.Div(List.ofArray([(_this4=HTML5.Attr(),(arg003="data-"+"role",_this4.NewAttr(arg003,"fieldcontain")))])),List.ofArray([Operators.add((x1=List.ofArray([(_this5=Default.Attr(),_this5.NewAttr("for","feedbackText"))]),(_this6=Default.Tags(),_this6.NewTag("label",x1))),List.ofArray([Default.Text("Feedback:")])),Default.TextArea(List.ofArray([Default.Id("feedbackText"),(_this7=Default.Attr(),_this7.NewAttr("style","background-color:yellow"))]))])),(f=(x2=function(x3)
      {
-      var x4,f1;
       feedbackText.contents=x3.Body.textContent;
-      x4=jQuery("#feedbackText").text("");
-      f1=function(value)
-      {
-       value;
-      };
-      return f1(x4);
      },function(arg10)
      {
       return EventsPervasives.Events().OnChange(x2,arg10);
-     }),(f(x),x))),(x5=Operators.add(Default.A(List.ofArray([(_this8=HTML5.Attr(),(arg004="data-"+"role",_this8.NewAttr(arg004,"button")))])),List.ofArray([Default.Text("Submit")])),(f2=(x6=function()
+     }),(f(x),x))),(x4=Operators.add(Default.A(List.ofArray([(_this8=HTML5.Attr(),(arg004="data-"+"role",_this8.NewAttr(arg004,"button")))])),List.ofArray([Default.Text("Submit")])),(f1=(x5=function()
      {
       return function()
       {
-       var x3,f1;
+       var x3,f2;
        x3=jQuery("#contactuscontent").animate({
         opacity:0.1
        },2000,function()
        {
         return ContactUs.SubmitFeedback(feedbackText.contents);
        });
-       f1=function(value)
+       f2=function(value)
        {
         value;
        };
-       return f1(x3);
+       return f2(x3);
       };
      },function(arg10)
      {
-      return EventsPervasives.Events().OnClick(x6,arg10);
-     }),(f2(x5),x5)))]));
-     page=(x7=Operators.add(Default.Div(List.ofArray([Default.Id("contactus"),(_this9=HTML5.Attr(),(arg005="data-"+"role",_this9.NewAttr(arg005,"page")))])),List.ofArray([header,content,SiteCommon.footer({
+      return EventsPervasives.Events().OnClick(x5,arg10);
+     }),(f1(x4),x4)))]));
+     page=(x6=Operators.add(Default.Div(List.ofArray([Default.Id("contactus"),(_this9=HTML5.Attr(),(arg005="data-"+"role",_this9.NewAttr(arg005,"page")))])),List.ofArray([header,content,SiteCommon.footer({
       $:3
      })])),(f3=(f4=function()
      {
-      var x3,f1;
+      var x3,f2,x7,f5;
       feedbackText.contents="";
-      x3=jQuery("#contactuscontent").css("opacity","1.0");
-      f1=function(value)
+      x3=jQuery("#feedbackText").text("");
+      f2=function(value)
       {
        value;
       };
-      return f1(x3);
+      f2(x3);
+      x7=jQuery("#contactuscontent").css("opacity","1.0");
+      f5=function(value)
+      {
+       value;
+      };
+      return f5(x7);
      },function(e)
      {
       return SiteCommon.OnBeforeShow(f4,e);
-     }),(f3(x7),x7)));
+     }),(f3(x6),x6)));
      return page;
     },
     SubmitFeedback:function(text)
