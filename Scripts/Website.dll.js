@@ -1,6 +1,6 @@
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,WebSharper,Html,Operators,Default,List,HTML5,_,SiteCommon,Billing,Concurrency,jQuery,Remoting,T,String,Seq,Nav,EventsPervasives,ClaimInput,NewClaimData,window,Claims,ClaimController,ContactUs,Policies,ConfirmationState,Unchecked,Website,MIScript;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,WebSharper,Html,Operators,Default,List,HTML5,_,SiteCommon,Billing,Concurrency,jQuery,Remoting,T,String,Seq,Nav,EventsPervasives,ClaimInput,window,Claims,ClaimController,ContactUs,Policies,ConfirmationState,Unchecked,Website,MIScript;
  Runtime.Define(Global,{
   "":{
    Billing:{
@@ -107,7 +107,7 @@
    ClaimInput:{
     ClaimIputPage:function()
     {
-     var header,_this,arg00,_this1,arg001,x,_this2,arg002,_this3,arg003,_this4,arg004,f,x1,x3,_this5,arg005,_this6,arg006,_this7,arg007,f2,x4,content,_this8,arg008,x5,x6,_this9,arg009,_thisa,f3,x7,_thisb,arg00a,x8,_thisc,_thisd,_thise,_thisf,_this10,_this11,arg00b,x9,_this12,_this13,xa,f4,xb,page,xd,xe,_this14,arg00c,f5,f6,f8,f9;
+     var header,_this,arg00,_this1,arg001,x,_this2,arg002,_this3,arg003,_this4,arg004,f,x1,x3,_this5,arg005,_this6,arg006,_this7,arg007,f2,x4,content,_this8,arg008,x5,x6,_this9,arg009,_thisa,f3,x7,_thisb,arg00a,x8,_thisc,_thisd,_thise,_thisf,_this10,_this11,arg00b,x9,_this12,_this13,xa,f4,xb,page,xd,xe,_this14,arg00c,f5,f6,f9,fa;
      header=Operators.add(Default.Div(List.ofArray([(_this=HTML5.Attr(),(arg00="data-"+"role",_this.NewAttr(arg00,"header"))),(_this1=HTML5.Attr(),(arg001="data-"+"theme",_this1.NewAttr(arg001,"b")))])),List.ofArray([(x=Operators.add(Default.A(List.ofArray([Default.HRef("#"),(_this2=HTML5.Attr(),(arg002="data-"+"role",_this2.NewAttr(arg002,"button"))),(_this3=HTML5.Attr(),(arg003="data-"+"icon",_this3.NewAttr(arg003,"delete"))),(_this4=HTML5.Attr(),(arg004="data-"+"inline",_this4.NewAttr(arg004,"true")))])),List.ofArray([Default.Text("Cancel")])),(f=(x1=function()
      {
       return function()
@@ -128,17 +128,14 @@
       return function()
       {
        var matchValue,desc,pid,claim,Location;
-       matchValue=[NewClaimData.selectedPolicyId().contents,NewClaimData.claimDescription().contents];
+       matchValue=[ClaimInput.CurrentClaimForm().PolicyId,ClaimInput.CurrentClaimForm().Description];
        if(matchValue[0].$==1)
         {
          if(matchValue[1].$==1)
           {
            desc=matchValue[1].$0;
            pid=matchValue[0].$0;
-           claim=(Location={
-            Lat:NewClaimData.lat().contents,
-            Lon:NewClaimData.lon().contents
-           },{
+           claim=(Location=ClaimInput.CurrentClaimForm().Location,{
             Id:"",
             PolicyId:pid,
             PolicyType:"",
@@ -167,7 +164,7 @@
      {
       var v;
       v=jQuery("input[type=radio]:checked").val();
-      NewClaimData.selectedPolicyId().contents={
+      ClaimInput.CurrentClaimForm().PolicyId={
        $:1,
        $0:Global.String(v)
       };
@@ -177,7 +174,7 @@
      }),(f3(x5),x5))),Operators.add(Default.Div(List.ofArray([(_thisb=HTML5.Attr(),(arg00a="data-"+"role",_thisb.NewAttr(arg00a,"fieldcontain")))])),List.ofArray([Operators.add((x8=List.ofArray([(_thisc=Default.Attr(),_thisc.NewAttr("for","locText"))]),(_thisd=Default.Tags(),_thisd.NewTag("label",x8))),List.ofArray([Default.Text("Location")])),Default.Input(List.ofArray([Default.Id("locText"),(_thise=Default.Attr(),_thise.NewAttr("type","text")),(_thisf=Default.Attr(),_thisf.NewAttr("readonly","true")),(_this10=Default.Attr(),_this10.NewAttr("style","background:lightgray"))]))])),Operators.add(Default.Div(List.ofArray([(_this11=HTML5.Attr(),(arg00b="data-"+"role",_this11.NewAttr(arg00b,"fieldcontain")))])),List.ofArray([Operators.add((x9=List.ofArray([(_this12=Default.Attr(),_this12.NewAttr("for","descText"))]),(_this13=Default.Tags(),_this13.NewTag("label",x9))),List.ofArray([Default.Text("Description")])),(xa=Default.TextArea(List.ofArray([Default.Id("descText")])),(f4=(xb=function(x2)
      {
       var xc,f1;
-      NewClaimData.claimDescription().contents=(xc=x2.Body.textContent,(f1=function(arg0)
+      ClaimInput.CurrentClaimForm().Description=(xc=x2.get_Value(),(f1=function(arg0)
       {
        return{
         $:1,
@@ -190,15 +187,19 @@
      }),(f4(xa),xa)))]))]));
      page=(xd=(xe=Operators.add(Default.Div(List.ofArray([Default.Id("newClaim"),(_this14=HTML5.Attr(),(arg00c="data-"+"role",_this14.NewAttr(arg00c,"page")))])),List.ofArray([header,content])),(f5=(f6=function()
      {
-      var matchValue,x2,f1,xc,f7;
+      var matchValue,x2,f1,xc,f7,xf,f8;
       matchValue=Nav.direction();
       if(matchValue.$==0)
        {
-        NewClaimData.selectedPolicyId().contents={
+        ClaimInput.CurrentClaimForm().Description={
          $:0
         };
-        NewClaimData.claimDescription().contents={
+        ClaimInput.CurrentClaimForm().PolicyId={
          $:0
+        };
+        ClaimInput.CurrentClaimForm().Location={
+         Lat:0,
+         Lon:0
         };
         x2=jQuery("#descText").val("");
         f1=function(value)
@@ -211,7 +212,13 @@
         {
          value;
         };
-        return f7(xc);
+        f7(xc);
+        xf=jQuery("#policychoice");
+        f8=function(jq)
+        {
+         return SiteCommon.ShowBusy(jq);
+        };
+        return f8(xf);
        }
       else
        {
@@ -220,7 +227,7 @@
      },function(e)
      {
       return SiteCommon.OnBeforeShow(f6,e);
-     }),(f5(xe),xe))),(f8=(f9=function()
+     }),(f5(xe),xe))),(f9=(fa=function()
      {
       var matchValue,x2,f1,xc,f7,fc;
       matchValue=Nav.direction();
@@ -238,12 +245,16 @@
         f1(x2);
         xc=(f7=function()
         {
-         var xf,fa;
+         var xf,f8;
          xf=ClaimInput.GetPosition();
-         fa=function(_arg1)
+         f8=function(_arg1)
          {
-          var coords,posTxt,x10,fb;
+          var coords,Lon,posTxt,x10,fb;
           coords=_arg1.coords;
+          ClaimInput.CurrentClaimForm().Location=(Lon=coords.longitude,{
+           Lat:coords.latitude,
+           Lon:Lon
+          });
           posTxt=Global.String([coords.latitude,coords.longitude]);
           x10=jQuery("#locText").val(posTxt);
           fb=function(value)
@@ -253,7 +264,7 @@
           fb(x10);
           return Concurrency.Return(null);
          };
-         return Concurrency.Bind(xf,fa);
+         return Concurrency.Bind(xf,f8);
         },Concurrency.Delay(f7));
         fc=function(arg00d)
         {
@@ -271,10 +282,25 @@
        }
      },function(e)
      {
-      return SiteCommon.OnShow(f9,e);
-     }),(f8(xd),xd)));
+      return SiteCommon.OnShow(fa,e);
+     }),(f9(xd),xd)));
      return page;
     },
+    CurrentClaimForm:Runtime.Field(function()
+    {
+     return{
+      Location:{
+       Lat:0,
+       Lon:0
+      },
+      Description:{
+       $:0
+      },
+      PolicyId:{
+       $:0
+      }
+     };
+    }),
     GetPosition:function()
     {
      var callback;
@@ -334,36 +360,6 @@
       return Concurrency.Bind(x,f1);
      };
      return Concurrency.Delay(f);
-    },
-    NewClaimData:{
-     claimDescription:Runtime.Field(function()
-     {
-      return{
-       contents:{
-        $:0
-       }
-      };
-     }),
-     lat:Runtime.Field(function()
-     {
-      return{
-       contents:0
-      };
-     }),
-     lon:Runtime.Field(function()
-     {
-      return{
-       contents:0
-      };
-     }),
-     selectedPolicyId:Runtime.Field(function()
-     {
-      return{
-       contents:{
-        $:0
-       }
-      };
-     })
     }
    },
    Claims:{
@@ -545,67 +541,78 @@
    ContactUs:{
     ContactUsPage:function()
     {
-     var feedbackText,header,_this,arg00,_this1,arg001,content,_this2,arg002,_this3,x,_this4,arg003,x1,_this5,_this6,_this7,f,x2,x4,_this8,arg004,f1,x5,page,x6,_this9,arg005,f3,f4;
-     feedbackText={
-      contents:""
-     };
+     var header,_this,arg00,_this1,arg001,content,_this2,arg002,_this3,_this4,arg003,x,_this5,_this6,_this7,_this8,_this9,_thisa,arg004,x1,_thisb,_thisc,_thisd,_thise,_thisf,_this10,arg005,x2,_this11,_this12,_this13,x3,_this14,arg006,f,x4,page,x7,_this15,arg008,f3,f4;
      header=Operators.add(Default.Div(List.ofArray([(_this=HTML5.Attr(),(arg00="data-"+"role",_this.NewAttr(arg00,"header"))),(_this1=HTML5.Attr(),(arg001="data-"+"theme",_this1.NewAttr(arg001,"b")))])),List.ofArray([SiteCommon.homeButton(),Default.H1(List.ofArray([Default.Text("Contact Us")]))]));
-     content=Operators.add(Default.Div(List.ofArray([(_this2=HTML5.Attr(),(arg002="data-"+"role",_this2.NewAttr(arg002,"content"))),(_this3=Default.Attr(),_this3.NewAttr("id","contactuscontent"))])),List.ofArray([Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-grid-a")])),List.ofArray([Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-block-a")])),List.ofArray([Default.Text("Company:")])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-block-b")])),List.ofArray([Default.Text("XYZ Co.")])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-block-a")])),List.ofArray([Default.Text("Phone:")])),Operators.add(Default.Div(List.ofArray([Default.Attr().Class("ui-block-b")])),List.ofArray([Default.Text("(555)-123-4567")]))])),(x=Operators.add(Default.Div(List.ofArray([(_this4=HTML5.Attr(),(arg003="data-"+"role",_this4.NewAttr(arg003,"fieldcontain")))])),List.ofArray([Operators.add((x1=List.ofArray([(_this5=Default.Attr(),_this5.NewAttr("for","feedbackText"))]),(_this6=Default.Tags(),_this6.NewTag("label",x1))),List.ofArray([Default.Text("Feedback:")])),Default.TextArea(List.ofArray([Default.Id("feedbackText"),(_this7=Default.Attr(),_this7.NewAttr("style","background-color:yellow"))]))])),(f=(x2=function(x3)
-     {
-      feedbackText.contents=x3.Body.textContent;
-     },function(arg10)
-     {
-      return EventsPervasives.Events().OnChange(x2,arg10);
-     }),(f(x),x))),(x4=Operators.add(Default.A(List.ofArray([(_this8=HTML5.Attr(),(arg004="data-"+"role",_this8.NewAttr(arg004,"button")))])),List.ofArray([Default.Text("Submit")])),(f1=(x5=function()
+     content=Operators.add(Default.Div(List.ofArray([(_this2=HTML5.Attr(),(arg002="data-"+"role",_this2.NewAttr(arg002,"content"))),(_this3=Default.Attr(),_this3.NewAttr("id","contactuscontent"))])),List.ofArray([Operators.add(Default.Div(List.ofArray([(_this4=HTML5.Attr(),(arg003="data-"+"role",_this4.NewAttr(arg003,"fieldcontain")))])),List.ofArray([Operators.add((x=List.ofArray([(_this5=Default.Attr(),_this5.NewAttr("for","companyName"))]),(_this6=Default.Tags(),_this6.NewTag("label",x))),List.ofArray([Default.Text("Company:")])),Default.Input(List.ofArray([Default.Id("companyName"),(_this7=Default.Attr(),_this7.NewAttr("readonly","true")),(_this8=Default.Attr(),_this8.NewAttr("value","XYZ Co.")),(_this9=Default.Attr(),_this9.NewAttr("style","background:lightgray"))]))])),Operators.add(Default.Div(List.ofArray([(_thisa=HTML5.Attr(),(arg004="data-"+"role",_thisa.NewAttr(arg004,"fieldcontain")))])),List.ofArray([Operators.add((x1=List.ofArray([(_thisb=Default.Attr(),_thisb.NewAttr("for","companyPhone"))]),(_thisc=Default.Tags(),_thisc.NewTag("label",x1))),List.ofArray([Default.Text("Phone:")])),Default.Input(List.ofArray([Default.Id("companyPhone"),(_thisd=Default.Attr(),_thisd.NewAttr("readonly","true")),(_thise=Default.Attr(),_thise.NewAttr("value","(555)-123-4567")),(_thisf=Default.Attr(),_thisf.NewAttr("style","background:lightgray"))]))])),Operators.add(Default.Div(List.ofArray([(_this10=HTML5.Attr(),(arg005="data-"+"role",_this10.NewAttr(arg005,"fieldcontain")))])),List.ofArray([Operators.add((x2=List.ofArray([(_this11=Default.Attr(),_this11.NewAttr("for","feedbackText"))]),(_this12=Default.Tags(),_this12.NewTag("label",x2))),List.ofArray([Default.Text("Feedback:")])),Default.TextArea(List.ofArray([Default.Id("feedbackText"),(_this13=Default.Attr(),_this13.NewAttr("style","background-color:yellow"))]))])),(x3=Operators.add(Default.A(List.ofArray([(_this14=HTML5.Attr(),(arg006="data-"+"role",_this14.NewAttr(arg006,"button")))])),List.ofArray([Default.Text("Submit")])),(f=(x4=function()
      {
       return function()
       {
-       var x3,f2;
-       x3=jQuery("#contactuscontent").animate({
-        opacity:0.1
-       },2000,function()
+       var x5,f1,x6,f2;
+       x5=ContactUs.SubmitFeedback();
+       f1=function(arg007)
        {
-        return ContactUs.SubmitFeedback(feedbackText.contents);
-       });
+        var t;
+        t={
+         $:0
+        };
+        return Concurrency.Start(arg007);
+       };
+       f1(x5);
+       x6=jQuery("#contactuscontent").animate({
+        opacity:0.1
+       },2000);
        f2=function(value)
        {
         value;
        };
-       return f2(x3);
+       return f2(x6);
       };
      },function(arg10)
      {
-      return EventsPervasives.Events().OnClick(x5,arg10);
-     }),(f1(x4),x4)))]));
-     page=(x6=Operators.add(Default.Div(List.ofArray([Default.Id("contactus"),(_this9=HTML5.Attr(),(arg005="data-"+"role",_this9.NewAttr(arg005,"page")))])),List.ofArray([header,content,SiteCommon.footer({
+      return EventsPervasives.Events().OnClick(x4,arg10);
+     }),(f(x3),x3)))]));
+     page=(x7=Operators.add(Default.Div(List.ofArray([Default.Id("contactus"),(_this15=HTML5.Attr(),(arg008="data-"+"role",_this15.NewAttr(arg008,"page")))])),List.ofArray([header,content,SiteCommon.footer({
       $:3
      })])),(f3=(f4=function()
      {
-      var x3,f2,x7,f5;
-      feedbackText.contents="";
-      x3=jQuery("#feedbackText").text("");
+      var x5,f1,x6,f2;
+      x5=jQuery("#feedbackText").val("");
+      f1=function(value)
+      {
+       value;
+      };
+      f1(x5);
+      x6=jQuery("#contactuscontent").css("opacity","1.0");
       f2=function(value)
       {
        value;
       };
-      f2(x3);
-      x7=jQuery("#contactuscontent").css("opacity","1.0");
-      f5=function(value)
-      {
-       value;
-      };
-      return f5(x7);
+      return f2(x6);
      },function(e)
      {
       return SiteCommon.OnBeforeShow(f4,e);
-     }),(f3(x6),x6)));
+     }),(f3(x7),x7)));
      return page;
     },
-    SubmitFeedback:function(text)
+    SubmitFeedback:function()
     {
-     var resp;
-     resp=Remoting.Call("Website:0",[text]);
-     return Nav.showNotification(resp,"#policies");
+     var f;
+     f=function()
+     {
+      var text,x,f1,x1,f2;
+      text=(x=jQuery("#feedbackText").val(),(f1=function(value)
+      {
+       return Global.String(value);
+      },f1(x)));
+      x1=Remoting.Async("Website:0",[text]);
+      f2=function(_arg1)
+      {
+       Nav.showNotification(_arg1,"#policies");
+       return Concurrency.Return(null);
+      };
+      return Concurrency.Bind(x1,f2);
+     };
+     return Concurrency.Delay(f);
     }
    },
    Policies:{
@@ -1137,7 +1144,6 @@
   Nav=Runtime.Safe(SiteCommon.Nav);
   EventsPervasives=Runtime.Safe(Html.EventsPervasives);
   ClaimInput=Runtime.Safe(_.ClaimInput);
-  NewClaimData=Runtime.Safe(ClaimInput.NewClaimData);
   window=Runtime.Safe(Global.window);
   Claims=Runtime.Safe(_.Claims);
   ClaimController=Runtime.Safe(Claims.ClaimController);
@@ -1159,9 +1165,6 @@
   ConfirmationState.g_no();
   ConfirmationState.g_next();
   ConfirmationState.g_msg();
-  NewClaimData.selectedPolicyId();
-  NewClaimData.lon();
-  NewClaimData.lat();
-  NewClaimData.claimDescription();
+  ClaimInput.CurrentClaimForm();
  });
 }());
